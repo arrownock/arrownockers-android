@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/tv_vertical_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
+            android:textColor="#f00"
+            android:textSize="30dp" />
+
+        <com.loopj.android.image.SmartImageView
+            android:id="@+id/iv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_margin="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_title"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
+            android:textColor="#000"
+            android:textSize="20dp" />
+
+        <RadioGroup
+            android:id="@+id/rGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_content"
+            android:layout_centerHorizontal="true" >
+
+            <RadioButton
+                android:id="@+id/rbtn_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="RadioButton_0" />
+
+            <RadioButton
+                android:id="@+id/rbtn_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton_1" />
+
+            <RadioButton
+                android:id="@+id/rbtn_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton_2" />
+
+            <RadioButton
+                android:id="@+id/rbtn_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RadioButton_3" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rGroup"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_vertical_line"
+            android:background="@drawable/blue_button"
+            android:onClick="onSubmitButtonClick"
+            android:text="提交"
+            android:textColor="@color/yellow_color" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rGroup"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/tv_vertical_line"
+            android:background="@drawable/blue_button"
+            android:onClick="onCheckButtonClick"
+            android:text="查看"
+            android:textColor="@color/yellow_color" />
+    </RelativeLayout>
+
+</ScrollView>

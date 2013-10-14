@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo</title>
+
+    <meta name="keywords" content="chart demo" />
+    <meta name="description" content="chart demo" />
+    
+    <script src="libraries/RGraph.common.core.js" ></script>
+    <script src="libraries/RGraph.common.dynamic.js" ></script>
+    <script src="libraries/RGraph.common.tooltips.js" ></script>
+    <script src="libraries/RGraph.line.js" ></script>
+    <script src="libraries/RGraph.bar.js" ></script>
+	<script src="libraries/RGraph.pie.js" ></script>
+	<script src="libraries/RGraph.common.key.js" ></script>
+	<script src="libraries/RGraph.common.effects.js" ></script>
+
+</head>
+<body>
+	<div id="breadcrumb">
+		<div id="main" style="text-align: center">
+			<canvas id="cvs" width="400" height="300">[No canvas support]</canvas>
+		</div>
+	</div>	
+    <script>
+        ShowChart = function (inData) {
+			var data = JSON.parse(inData);
+			if (!data) return;
+			
+			RGraph.Clear(document.getElementById('cvs'));
+			var chart = undefined;
+			switch(data.type) {
+			case "pie":
+				chart = new RGraph.Pie('cvs', data.cData.data);
+				chart.Set('chart.title.vpos', 0.5);
+				chart.Set('chart.hmargin', 15);
+				chart.Set('chart.gutter.top', 45);
+				chart.Set('chart.gutter.bottom', 45);
+				chart.Set('chart.exploded', 5);
+				chart.Set('chart.shadow', true);
+				break;
+			default:
+				break;
+			}
+			
+			if (chart) {
+				if (data.title) chart.Set('chart.title', data.title);
+				if (data.cData.colors) chart.Set('chart.colors', data.cData.colors);
+				if (data.cData.labels) chart.Set('chart.labels', data.cData.labels);
+				if (data.cData.tooltips) chart.Set('chart.tooltips', data.cData.tooltips);
+				if (data.cData.key) chart.Set('chart.key', data.cData.key);
+				
+				chart.Draw();
+			}
+		}
+		
+		GetANDefaultData = function (arg) {
+			var type = arg['type'];
+			var title = arg['title'];
+			var percentages = arg['percentages'];
+			var choices = arg['choices'];
+			var data = undefined;
+
+			switch(type) {
+				case "pie":
+					data = {
+						type  : "pie",
+						title : title,
+						cData : {
+							data : [percentages[0], percentages[1], percentages[2], percentages[3]],
+							labels : [choices[0], choices[1], choices[2], choices[3]],
+							colors : ['Gradient(red)','Gradient(green)','Gradient(blue)','Gradient(yellow)'],
+							tooltips : [percentages[0].toString(),percentages[1].toString(),percentages[2].toString(),percentages[3].toString()],
+						}
+					};
+					break;
+				default:
+					break;
+			}
+			return data;
+		}
+		
+	   	initANData = function(arg) {
+			ShowChart(JSON.stringify(GetANDefaultData(JSON.parse(arg))));
+		}
+
+    </script>
+</body>
+</html>

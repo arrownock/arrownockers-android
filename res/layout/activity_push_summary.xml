@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_push_summary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_push_summary_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/blue_color" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="推送消息"
+            android:textColor="@color/yellow_color" >
+        </TextView>
+
+        <Button
+            android:id="@+id/btn_push_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:onClick="onButtonPushAddClick"
+            android:text="新建"
+            android:textColor="@color/yellow_color" />
+    </RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_push_summary"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/rl_push_summary_title"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrMode="pullDownFromTop" />
+
+</RelativeLayout>

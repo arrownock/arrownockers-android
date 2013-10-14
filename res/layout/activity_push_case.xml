@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff" >
+
+    <TextView
+        android:id="@+id/tv_push_case_title"
+        android:layout_width="fill_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/blue_color"
+        android:gravity="center"
+        android:text="@string/case_push_title"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_push_case_title" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/rl_push_case_require"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" >
+
+                <Button
+                    android:id="@+id/btn_push_case_require"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:onClick="onRequireButtonClick"
+                    android:text="获取验证码"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tv_push_case_time_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_push_case_require"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:text="60秒后需要重新获取新验证码"
+                    android:textColor="#000"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_push_case_verify"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_push_case_require" >
+
+                <TextView
+                    android:id="@+id/tv_received_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/red_color" />
+
+                <EditText
+                    android:id="@+id/tv_push_case_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_received_code"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:hint="输入验证码"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/btn_push_case_verify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_push_case_code"
+                    android:layout_centerInParent="true"
+                    android:onClick="onVerifyButtonClick"
+                    android:text="提交验证码"
+                    android:textColor="#000" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

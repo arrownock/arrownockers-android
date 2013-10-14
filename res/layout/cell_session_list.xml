@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:clickable="false" >
+
+    <ImageView
+        android:id="@+id/iv_userhead"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_session_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/iv_userhead"
+        android:text="Title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/blue_color" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_session_title"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/iv_userhead"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/blue_color" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:text="2013-06-01 13:14"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/sky_blue_color" />
+
+    <ImageView
+        android:id="@+id/iv_new"
+        android:layout_width="25dp"
+        android:layout_height="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17.5dp"
+        android:src="@drawable/new_message"
+        android:visibility="invisible" />
+
+    <!--
+         <ImageView
+        android:id="@+id/iv_new"
+        android:layout_width="25dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/iv_userhead"
+        android:layout_marginLeft="17.5dp"
+        android:src="@drawable/new_message"
+        android:visibility="invisible" />
+    -->
+
+
+    <!--
+         <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/title_btn_delete"
+        android:onClick="deleteSession"
+        android:text="删除会话"
+        android:textColor="#000"
+        android:visibility="gone" />
+    -->
+
+</RelativeLayout>

@@ -1,0 +1,241 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:arc="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rl_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff" >
+
+        <ImageView
+            android:id="@+id/iv_arrownock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logo" />
+
+        <RelativeLayout
+            android:id="@+id/ll_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_arrownock"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/et_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="email|phone|web"
+                android:background="#00000000"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="产品版本:"
+                android:textColor="@color/red_color"
+                android:textIsSelectable="true" />
+
+            <EditText
+                android:id="@+id/et_version_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_version"
+                android:autoLink="email|phone|web"
+                android:background="#00000000"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="13.10.10"
+                android:textColor="@color/red_color"
+                android:textIsSelectable="true" />
+
+            <EditText
+                android:id="@+id/et_license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_version_content"
+                android:autoLink="email|phone|web"
+                android:background="#00000000"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="本应用及其开源代码License在:"
+                android:textColor="@color/red_color"
+                android:textIsSelectable="true" />
+
+            <EditText
+                android:id="@+id/et_license_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_license"
+                android:autoLink="email|phone|web"
+                android:background="#00000000"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="http://www.gnu.org/licenses/gpl-2.0.html"
+                android:textColor="@color/red_color"
+                android:textIsSelectable="true" />
+
+            <EditText
+                android:id="@+id/et_website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_license_content"
+                android:autoLink="email|phone|web"
+                android:background="#00000000"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="更多介绍请访问:"
+                android:textColor="@color/red_color"
+                android:textIsSelectable="true" />
+
+            <EditText
+                android:id="@+id/et_website_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_website"
+                android:autoLink="email|phone|web"
+                android:background="#00000000"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="http://www.arrownock.com"
+                android:textColor="@color/red_color"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_about"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="#00000000"
+            android:onClick="onClearClick"
+            android:text="清除本地缓存内容"
+            android:textColor="@color/yellow_color" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/iv_yellow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/yellow"
+            android:scaleType="matrix" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/sun" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/iv_blue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/blue"
+            android:scaleType="matrix" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/moon" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/ll_center"
+            android:layout_centerInParent="true" >
+
+            <ImageView
+                android:id="@+id/iv_clock"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:alpha="0.3"
+                android:background="@drawable/clock" />
+
+            <TextView
+                android:id="@+id/tv_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:alpha="1"
+                android:text="12:12"
+                android:textColor="#fff"
+                android:textSize="30sp"
+                android:typeface="monospace" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/rl_clock" >
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo" />
+        </RelativeLayout>
+
+        <com.capricorn.ArcMenu
+            android:id="@+id/feature_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_clock"
+            android:layout_centerHorizontal="true"
+            arc:childSize="@dimen/menuChildSize"
+            arc:fromDegrees="@dimen/menuFromDegrees"
+            arc:toDegrees="@dimen/menuToDegrees" />
+
+        <ImageView
+            android:id="@+id/iv_main_id"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/setting_normal" />
+
+        <TextView
+            android:id="@+id/tv_main_id"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@id/iv_main_id"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_main_id"
+            android:gravity="center"
+            android:text="正在初始化用户"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+</RelativeLayout>

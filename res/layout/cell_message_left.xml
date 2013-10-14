@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    tools:ignore="HardcodedText" >
+
+    <TextView
+        android:id="@+id/tv_message_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="70dp"
+        android:background="#00000000"
+        android:text="2013-09-17 21:32"
+        android:textColor="#89A" />
+
+    <RelativeLayout
+        android:id="@+id/rl_message_left_bubble_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_message_timestamp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/message_incoming_bubble"
+        style="@style/chat_content_date_style" >
+
+        <ImageView
+            android:id="@+id/iv_message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:onClick="onBubbleClick" />
+
+        <EditText
+            android:id="@+id/tv_message_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="email|phone|web"
+            android:background="#00000000"
+            android:inputType="none"
+            android:maxWidth="200dp"
+            android:text="消息内容\n消息内容另一行消息内容另一行消息内容另一行消息内容另一行消息内容另一行消息内容另一行消息内容另一行消息内容另一行"
+            android:textColor="#ff000000"
+            android:textIsSelectable="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_message_realname"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@id/rl_message_left_bubble_container"
+        android:gravity="center"
+        android:text="三个字"
+        android:textColor="#049"
+        android:textSize="10sp" />
+
+</RelativeLayout>

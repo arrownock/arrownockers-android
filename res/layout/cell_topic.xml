@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/blue_color"
+    tools:ignore="HardcodedText" >
+
+    <TextView
+        android:id="@+id/tv_topic_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:background="#00000000"
+        android:text="2013-09-17 21:32"
+        android:textColor="@color/lemon_yellow_color"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_topic_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#00000000"
+        android:text="群组名字(x人)"
+        android:textColor="@color/yellow_color"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/iv_topic_new"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_alignRight="@id/tv_topic_timestamp"
+        android:layout_below="@id/tv_topic_timestamp"
+        android:contentDescription="新消息"
+        android:src="@drawable/new_message" />
+
+    <TextView
+        android:id="@+id/tv_topic_last_message"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_topic_name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#00000000"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="谁谁谁:最后一条消息内容"
+        android:textColor="@color/lemon_yellow_color"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tv_topic_last_message"
+        android:background="@color/yellow_color" />
+
+</RelativeLayout>

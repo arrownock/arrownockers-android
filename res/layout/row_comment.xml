@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff" >
+
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20px" >
+
+        <com.loopj.android.image.SmartImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_marginLeft="5px"
+            android:layout_marginTop="5px"
+            android:src="@drawable/copyright" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="50px"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="5px"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:text="此处隐去用户名"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="50px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5px"
+            android:layout_marginTop="5px"
+            android:gravity="top"
+            android:text="2013-07-16 11:08"
+            android:textColor="#000"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_username"
+            android:layout_below="@id/tv_username"
+            android:layout_marginRight="50px"
+            android:layout_marginTop="5px"
+            android:text="箭扣科技上市啦\n箭扣科技上市啦"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

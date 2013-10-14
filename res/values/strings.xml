@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">我的箭扣者</string>
+    <string name="upstream_push_title">双向推送</string>
+    <string name="upstream_push_summary">这是用户自行发送和接收推送消息的 demo 。通过这个 demo , 可以帮助开发者有效的了解如何调用 anPush 的 API 来发送和接收各种数据类型</string>
+    <string name="system_push_title">系统消息</string>
+    <string name="system_push_summary">在这个 demo 应用的管理端，我们的工程师会不定期的发送各种测试消息包，让你感受推送内容的不同和意义。也许，我们也会提供 Arrownock 服务升级的及时信息</string>
+    <string name="case_push_title">身份认证</string>
+    <string name="case_push_summary">这是使用推送服务来提供金融行业的双重身份验证的一个功能展示。通过使用推送频道，业务验证码发送给客户应用端，极大的降低了由于短信通道不稳定性造成的业务损失</string>
+
+    <string-array name="wall_titles">
+        <item>新闻公告</item>
+        <item>社交论道</item>
+        <item>交流反馈</item>
+    </string-array>
+
+    <string name="pull_to_refresh_pull_label">Pull to refresh…</string>
+    <string name="pull_to_refresh_release_label">Release to refresh…</string>
+    <string name="pull_to_refresh_refreshing_label">Loading…</string>
+
+    <!-- Just use standard Pull Down String when pulling up. These can be set for languages which require it -->
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+
+</resources>
