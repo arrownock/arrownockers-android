@@ -53,13 +53,6 @@ public class CustomReceiver extends BroadcastReceiver {
 		if (intent == null || context == null)
 			return;
 
-		try {
-			if (!AnPush.getInstance(context).isEnabled())
-				return;
-		} catch (ArrownockException e) {
-			return;
-		}
-
 		if (intent.getAction().equals(BOOT_ACTION)) {
 			Log.i("onReceive", "BOOT_ACTION");
 			PushService.actionStart(context);

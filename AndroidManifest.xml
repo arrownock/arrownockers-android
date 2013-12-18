@@ -77,6 +77,7 @@
 
         <receiver android:name="com.arrownock.opensource.arrownockers.utils.CustomReceiver" >
             <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.arrownock.push.PushService.MSG_ARRIVAL" />
             </intent-filter>
         </receiver>
