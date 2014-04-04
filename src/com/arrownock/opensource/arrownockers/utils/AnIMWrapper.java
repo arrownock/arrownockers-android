@@ -48,6 +48,7 @@ import com.arrownock.im.callback.AnIMStatusUpdateCallbackData;
 import com.arrownock.im.callback.AnIMTopicBinaryCallbackData;
 import com.arrownock.im.callback.AnIMTopicMessageCallbackData;
 import com.arrownock.im.callback.AnIMUnbindAnPushServiceCallbackData;
+import com.arrownock.im.callback.AnIMUpdateTopicCallbackData;
 import com.arrownock.im.callback.IAnIMCallback;
 import com.arrownock.mrm.MRMJSONResponseHandler;
 
@@ -958,5 +959,10 @@ public class AnIMWrapper implements IAnIMCallback {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void updateTopic(AnIMUpdateTopicCallbackData arg0) {
+		// topic has been updated
 	}
 }
