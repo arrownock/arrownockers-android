@@ -141,7 +141,7 @@ public class PushCaseActivity extends Activity implements OnPushArrived,
 			AsyncHttpClient client = new AsyncHttpClient();
 			RequestParams params = new RequestParams("id",
 					AnUtils.getCurrentUsername());
-			params.add("auth_code", code);
+			params.put("auth_code", code);
 			client.post(AnUtils.verifyEndpoint, params,
 					new JsonHttpResponseHandler() {
 
