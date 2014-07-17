@@ -3,7 +3,7 @@
 
 体验试用应用下载: <http://www.arrownock.com/files/Arrownockers.apk>
 
-更多详细介绍: <http://www.arrownock.com/template/demo>
+更多详细介绍: <http://www.arrownock.com>
 
 ## 安装使用
 详细安装使用文档请参见: <http://docs.arrownock.com/guides/demo/android>

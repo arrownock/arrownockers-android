@@ -26,6 +26,8 @@ import com.arrownock.opensource.arrownockers.topic.TopicListActivity;
 import com.arrownock.opensource.arrownockers.utils.DBManager.Chat;
 import com.arrownock.exception.ArrownockException;
 import com.arrownock.im.AnIM;
+import com.arrownock.im.AnIMMessage;
+import com.arrownock.im.AnIMMessageType;
 import com.arrownock.im.AnIMStatus;
 import com.arrownock.im.AnPushType;
 import com.arrownock.im.callback.AnIMAddClientsCallbackData;
@@ -37,7 +39,6 @@ import com.arrownock.im.callback.AnIMGetClientsStatusCallbackData;
 import com.arrownock.im.callback.AnIMGetSessionInfoCallbackData;
 import com.arrownock.im.callback.AnIMGetTopicInfoCallbackData;
 import com.arrownock.im.callback.AnIMGetTopicListCallbackData;
-import com.arrownock.im.callback.AnIMGetTopicLogCallbackData;
 import com.arrownock.im.callback.AnIMMessageCallbackData;
 import com.arrownock.im.callback.AnIMMessageSentCallbackData;
 import com.arrownock.im.callback.AnIMNoticeCallbackData;
@@ -50,6 +51,7 @@ import com.arrownock.im.callback.AnIMTopicMessageCallbackData;
 import com.arrownock.im.callback.AnIMUnbindAnPushServiceCallbackData;
 import com.arrownock.im.callback.AnIMUpdateTopicCallbackData;
 import com.arrownock.im.callback.IAnIMCallback;
+import com.arrownock.im.callback.IAnIMHistoryCallback;
 import com.arrownock.mrm.MRMJSONResponseHandler;
 
 public class AnIMWrapper implements IAnIMCallback {
@@ -137,7 +139,6 @@ public class AnIMWrapper implements IAnIMCallback {
 
 				thisContext = context;
 			}
-
 			// FIXME 注册网络状态监听
 			// wrapper.registerDataTransReceiver();
 		} catch (ArrownockException e) {
@@ -278,7 +279,182 @@ public class AnIMWrapper implements IAnIMCallback {
 			e.printStackTrace();
 		}
 	}
+	
+	public void getOfflineMessages() {
+		wrapper.anIM.getOfflineHistory(AnUtils.getCurrentClientId(), 10, new IAnIMHistoryCallback() {
+			@Override
+			public void onError(ArrownockException e) {
+				Log.e(logTag, "Failed to fetch offline messages. " + e.getMessage());
+			}
 
+			@Override
+			public void onSuccess(List messages, int count) {
+				for(int i = 0; i< messages.size(); i++) {
+					AnIMMessage message = (AnIMMessage)messages.get(i);
+					if(message != null) {
+						if(AnIMMessageType.AnIMTextMessage == message.getType()) {
+							Map<String, String> customData = message.getCustomData();
+							String username = customData.get("username");
+							double timeDouble = Double.parseDouble(customData.get("time"));
+							long longTime = (long) timeDouble * 1000;
+							Date time = new Date(longTime);
+
+							Chat chat = new Chat();
+							chat.type = "text";
+							chat.fromClientId = message.getFrom();
+							List<String> p = new ArrayList<String>();
+							p.add(AnUtils.getCurrentClientId());
+							p.add(message.getFrom());
+							Collections.sort(p);
+							chat.parties = StringUtils.join(p, ",");
+							chat.message = message.getMessage();
+							chat.messageId = message.getMsgId();
+							chat.status = "unread";
+							chat.income = true;
+							chat.time = AnUtils.getTimeString(time);
+							chat.realname = username;
+							
+							saveReceivedMessage(chat, p);
+						} else if(AnIMMessageType.AnIMBinaryMessage == message.getType()) {
+							Map<String, String> customData = message.getCustomData();
+							String username = customData.get("username");
+							double timeDouble = Double.parseDouble(customData.get("time"));
+							long longTime = (long) timeDouble * 1000;
+							Date time = new Date(longTime);
+
+							Chat chat = new Chat();
+							chat.type = message.getFileType();
+							chat.fromClientId = message.getFrom();
+							List<String> p = new ArrayList<String>();
+							p.add(AnUtils.getCurrentClientId());
+							p.add(message.getFrom());
+							Collections.sort(p);
+							chat.parties = StringUtils.join(p, ",");
+							chat.messageId = message.getMsgId();
+							chat.status = "unread";
+							chat.income = true;
+							chat.time = AnUtils.getTimeString(time);
+							chat.realname = username;
+							if (chat.type.equals("location")) {
+								chat.latitude = Double.valueOf(customData.get("latitude")
+										.toString());
+								chat.longitude = Double.valueOf(customData.get("longitude")
+										.toString());
+							} else {
+								chat.binary = message.getContent();
+							}
+							saveRecievedBinaryMessage(chat, p);
+						}
+					}
+				}
+				// if there is still message left, fetch them
+				if(count > 0) {
+					getOfflineMessages();
+				}
+			}
+		});
+	}
+	
+	public void getTopicOfflineMessages() {
+		wrapper.anIM.getOfflineTopicHistory(AnUtils.getCurrentClientId(), 10, new IAnIMHistoryCallback() {
+			public void onError(ArrownockException e) {
+				Log.e(logTag, "Failed to fetch topic offline messages. " + e.getMessage());
+			}
+
+			@Override
+			public void onSuccess(List messages, int count) {
+				for(int i = 0; i< messages.size(); i++) {
+					AnIMMessage message = (AnIMMessage)messages.get(i);
+					if(message != null) {
+						if(AnIMMessageType.AnIMTextMessage == message.getType()) {
+							String messageId = message.getMsgId();
+							String content = message.getMessage();
+							String topicId = message.getTopicId();
+							Map<String, String> customData = message.getCustomData();
+							String realname = customData.get("realname");
+							String username = customData.get("username");
+							if (realname == null) {
+								realname = username;
+							}
+							double timeDouble = Double.parseDouble(customData.get("time"));
+							long longTime = (long) timeDouble * 1000;
+							Date time = new Date(longTime);
+
+							Message msg = new Message();
+							msg.messageId = messageId;
+							msg.content = content;
+							msg.topicId = topicId;
+							msg.realname = realname;
+							msg.username = username;
+							msg.timestamp = time;
+							msg.isUnread = true;
+							msg.isIncoming = true;
+							msg.isUnsent = false;
+							msg.isError = false;
+							msg.type = EntityType.ET_TEXT;
+
+							DBManager.writeMessage(msg);
+
+							if (messageListActivity != null) {
+								messageListActivity.onMessage(msg);
+							}
+
+							if (topicListActivity != null) {
+								topicListActivity.onMessage(msg);
+							}
+						} else if(AnIMMessageType.AnIMBinaryMessage == message.getType()) {
+							String messageId = message.getMsgId();
+							byte[] contentData = message.getContent();
+							String fileType = message.getFileType();
+							String topicId = message.getTopicId();
+							Map<String, String> customData = message.getCustomData();
+							String realname = customData.get("realname");
+							String username = customData.get("username");
+							if (realname == null) {
+								realname = username;
+							}
+							double timeDouble = Double.parseDouble(customData.get("time"));
+							long longTime = (long) timeDouble * 1000;
+							Date time = new Date(longTime);
+
+							Message msg = new Message();
+							msg.messageId = messageId;
+							msg.topicId = topicId;
+							msg.realname = realname;
+							msg.username = username;
+							msg.timestamp = time;
+							msg.isUnread = true;
+							msg.isIncoming = true;
+							msg.isUnsent = false;
+							msg.isError = false;
+							if (fileType.equals("image")) {
+								msg.imageData = contentData;
+								msg.type = EntityType.ET_IMAGE;
+							} else if (fileType.equals("audio")) {
+								msg.audioData = contentData;
+								msg.type = EntityType.ET_AUDIO;
+							}
+
+							DBManager.writeMessage(msg);
+
+							if (messageListActivity != null) {
+								messageListActivity.onMessage(msg);
+							}
+
+							if (topicListActivity != null) {
+								topicListActivity.onMessage(msg);
+							}
+						}
+					}
+				}
+				// if there is still message left, fetch them
+				if(count > 0) {
+					getTopicOfflineMessages();
+				}
+			}
+		});
+	}
+	
 	public String sendMessageToClients(String message, List<String> clientIds) {
 		String messageId = null;
 		try {
@@ -598,10 +774,6 @@ public class AnIMWrapper implements IAnIMCallback {
 		}
 	}
 
-	@Override
-	public void getTopicLog(AnIMGetTopicLogCallbackData arg0) {
-	}
-
 	// 回调函数。某条消息发送成功/失败的回调函数
 	@Override
 	public void messageSent(AnIMMessageSentCallbackData arg0) {
@@ -673,38 +845,39 @@ public class AnIMWrapper implements IAnIMCallback {
 			} else {
 				chat.binary = arg0.getContent();
 			}
-			DBManager.addChat(chat);
-
-			p.remove(AnUtils.getCurrentClientId());
-			boolean existing = DBManager.setSessionUnread(p, chat.time, "收到了新"
-					+ chat.type);
-			if (existing) {
-				if ((chatActivity == null && sessionActivity == null)
-						|| (chatActivity == null && !sessionActivity.alive)
-						|| (chatActivity != null && !chatActivity.alive)) {
-					AnUtils.showNotification(thisContext, "session");
-					return;
-				}
-				if (chatActivity != null && chatActivity.alive) {
-					chatActivity.onReceivedChat();
-					Log.i(logTag, "sendReadACK messageReceived");
-					wrapper.sendReadACKToClients(p, arg0.getMsgId());
-				}
-				if (sessionActivity != null && sessionActivity.alive) {
-					sessionActivity.initData();
-				}
-
-			} else {
-				DBManager.addSession(p, username, chat.time,
-						"收到了新" + chat.type, "unread");
-			}
-
+			saveRecievedBinaryMessage(chat, p);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	private void saveRecievedBinaryMessage(Chat chat, List<String> parties) {
+		DBManager.addChat(chat);
+
+		parties.remove(AnUtils.getCurrentClientId());
+		boolean existing = DBManager.setSessionUnread(parties, chat.time, "收到了新" + chat.type);
+		if (existing) {
+			if ((chatActivity == null && sessionActivity == null)
+					|| (chatActivity == null && !sessionActivity.alive)
+					|| (chatActivity != null && !chatActivity.alive)) {
+				AnUtils.showNotification(thisContext, "session");
+				return;
+			}
+			if (chatActivity != null && chatActivity.alive) {
+				chatActivity.onReceivedChat();
+				Log.i(logTag, "sendReadACK messageReceived");
+				wrapper.sendReadACKToClients(parties, chat.messageId);
+			}
+			if (sessionActivity != null && sessionActivity.alive) {
+				sessionActivity.initData();
+			}
+
+		} else {
+			DBManager.addSession(parties, chat.realname, chat.time, "收到了新" + chat.type, "unread");
+		}
+	}
+	
 	// 回调函数。收到来自某个用户的文本消息时的回调函数
 	@SuppressWarnings("unchecked")
 	@Override
@@ -732,38 +905,40 @@ public class AnIMWrapper implements IAnIMCallback {
 			chat.income = true;
 			chat.time = AnUtils.getTimeString(time);
 			chat.realname = username;
-			DBManager.addChat(chat);
-
-			p.remove(AnUtils.getCurrentClientId());
-			boolean existing = DBManager.setSessionUnread(p, chat.time,
-					arg0.getMessage());
-
-			if (existing) {
-				if ((chatActivity == null && sessionActivity == null)
-						|| (chatActivity == null && !sessionActivity.alive)
-						|| (chatActivity != null && !chatActivity.alive)) {
-					AnUtils.showNotification(thisContext, "session");
-					return;
-				}
-				if (chatActivity != null && chatActivity.alive) {
-					chatActivity.onReceivedChat();
-					Log.i(logTag, "sendReadACK messageReceived");
-					wrapper.sendReadACKToClients(p, arg0.getMsgId());
-				}
-				if (sessionActivity != null && sessionActivity.alive) {
-					sessionActivity.initData();
-				}
-			} else {
-				DBManager.addSession(p, username, chat.time, arg0.getMessage(),
-						"unread");
-			}
-
+			
+			saveReceivedMessage(chat, p);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	private void saveReceivedMessage(Chat chat, List<String> parties) {
+		DBManager.addChat(chat);
+
+		parties.remove(AnUtils.getCurrentClientId());
+		boolean existing = DBManager.setSessionUnread(parties, chat.time, chat.message);
+
+		if (existing) {
+			if ((chatActivity == null && sessionActivity == null)
+					|| (chatActivity == null && !sessionActivity.alive)
+					|| (chatActivity != null && !chatActivity.alive)) {
+				AnUtils.showNotification(thisContext, "session");
+				return;
+			}
+			if (chatActivity != null && chatActivity.alive) {
+				chatActivity.onReceivedChat();
+				Log.i(logTag, "sendReadACK messageReceived");
+				wrapper.sendReadACKToClients(parties, chat.messageId);
+			}
+			if (sessionActivity != null && sessionActivity.alive) {
+				sessionActivity.initData();
+			}
+		} else {
+			DBManager.addSession(parties, chat.realname, chat.time, chat.message, "unread");
+		}
+	}
+	
 	@Override
 	public void receivedNotice(AnIMNoticeCallbackData arg0) {
 	}
@@ -963,6 +1138,6 @@ public class AnIMWrapper implements IAnIMCallback {
 
 	@Override
 	public void updateTopic(AnIMUpdateTopicCallbackData arg0) {
-		// topic has been updated
+		// the topic has been updated
 	}
 }
