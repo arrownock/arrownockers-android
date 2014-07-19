@@ -46,7 +46,7 @@ public class SessionActivity extends Activity {
 
 		setContentView(R.layout.activity_session_list);
 
-		if (AnIMWrapper.getWrapper() == null) {
+		if (getIntent().getBooleanExtra("fromPush", false)) {
 			AnIMWrapper.init(SessionActivity.this, AnUtils.AppKey);
 		}
 		AnIMWrapper.getWrapper().connectIfOffline();

@@ -230,10 +230,6 @@ public class AnUtils {
 			} else {
 				Log.i(logTag, "existing user: " + AnUtils.getCurrentUsername());
 				
-				// fetch all offline messages when open the app
-				AnIMWrapper.getWrapper().getOfflineMessages();
-				AnIMWrapper.getWrapper().getTopicOfflineMessages();
-
 				final String username = AnUtils.getCurrentUsername();
 				final String password = AnUtils.getCurrentPassword();
 				JSONObject params = new JSONObject();

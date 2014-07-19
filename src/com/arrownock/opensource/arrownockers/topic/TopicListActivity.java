@@ -43,7 +43,7 @@ public class TopicListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_topic_list);
 
-		if (AnIMWrapper.getWrapper() == null) {
+		if (getIntent().getBooleanExtra("fromPush", false)) {
 			AnIMWrapper.init(TopicListActivity.this, AnUtils.AppKey);
 		}
 		AnIMWrapper.getWrapper().connectIfOffline();

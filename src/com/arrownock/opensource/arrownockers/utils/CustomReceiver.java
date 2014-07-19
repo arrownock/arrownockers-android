@@ -176,6 +176,7 @@ public class CustomReceiver extends BroadcastReceiver {
 			} else {
 				intent = new Intent(context, SessionActivity.class);
 			}
+			intent.putExtra("fromPush", true);
 		} else {
 			return;
 		}
@@ -186,7 +187,7 @@ public class CustomReceiver extends BroadcastReceiver {
 			intent.putExtra("title", payload.getJSONObject("android")
 					.getString("title"));
 		} catch (JSONException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		PendingIntent pi = PendingIntent.getActivity(context, 0, intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);

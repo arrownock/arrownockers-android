@@ -281,6 +281,8 @@ public class AnIMWrapper implements IAnIMCallback {
 	}
 	
 	public void getOfflineMessages() {
+		Log.i(logTag, "Fetching offline messages...");
+		
 		wrapper.anIM.getOfflineHistory(AnUtils.getCurrentClientId(), 10, new IAnIMHistoryCallback() {
 			@Override
 			public void onError(ArrownockException e) {
@@ -356,6 +358,8 @@ public class AnIMWrapper implements IAnIMCallback {
 	}
 	
 	public void getTopicOfflineMessages() {
+		Log.i(logTag, "Fetching topic offline messages....");
+		
 		wrapper.anIM.getOfflineTopicHistory(AnUtils.getCurrentClientId(), 10, new IAnIMHistoryCallback() {
 			public void onError(ArrownockException e) {
 				Log.e(logTag, "Failed to fetch topic offline messages. " + e.getMessage());
@@ -1119,6 +1123,10 @@ public class AnIMWrapper implements IAnIMCallback {
 					}
 				}
 			}
+			
+			// fetch all offline messages when open the app
+			getOfflineMessages();
+			getTopicOfflineMessages();
 		}
 	}
 
