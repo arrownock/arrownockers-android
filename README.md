@@ -1,3 +1,5 @@
+`` 特别说明: 此代码库已经不再维护，获取最新代码请访问:`` <https://code.csdn.net/arrownock/arrownockers-android>
+
 # Arrownockers (箭扣者)
 集合各种社交消息功能于一身，以“箭扣开发者”通讯交流为主线的SMaaS核心功能展示开源应用。
 
